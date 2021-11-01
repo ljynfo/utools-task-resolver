@@ -1,0 +1,36 @@
+{
+  "pluginName": "任务解析",
+  "description": "任务解析",
+  "logo": "img/task.jpg",
+  "preload": "preload.js",
+  "author": "小金鱼",
+  "homepage": "https://github.com/ljynfo/utools-task-resolver",
+  "platform": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "features": [
+    {
+      "code": "task_resolver",
+      "explain": "任务解析",
+      "cmds": [
+        {
+          "maxNum": 1,
+          "type": "files",
+          "fileType": "file",
+          "match": "/\\.(?:xmind)$/i",
+          "label": "任务解析"
+        }
+      ]
+    },
+    {
+      "code": "setting",
+      "explain": "任务解析设置",
+      "cmds": ["任务解析设置"]
+    }
+  ],
+  "pluginSetting": {
+    "single": true
+  }
+}
