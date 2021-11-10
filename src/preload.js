@@ -1,8 +1,7 @@
-const fs = require('fs');
 const Nano = require('nano-jsx');
 const {jsx} = require('nano-jsx');
 const zipUtils = require('./js/zipUtils.js')
-const {SettingUI} = require('./Setting/index.jsx');
+const {SettingUI} = require('./setting/index.jsx');
 const XLSX = require("xlsx");
 
 let bookmarksDataCache = [
