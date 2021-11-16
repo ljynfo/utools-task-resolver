@@ -24,12 +24,15 @@ let bookmarksDataCache = [
 ]
 // xmind 文件路径
 let filePath = '';
+let fileName = '';
+let excelSuffix = 'xlsx'
+let xmindSuffix = 'xmind'
 
 function saveExelHandler() {
     const savePath = utools.showSaveDialog({
         title: '保存位置',
-        filters: [{name: "Excel", extensions: ['xlsx']}],
-        defaultPath: filePath.replace('.xmind', ''),
+        filters: [{name: "Excel", extensions: [excelSuffix]}],
+        defaultPath: filePath.replace('.'.concat(xmindSuffix), ''),
         buttonLabel: '保存'
     });
     try {
@@ -43,6 +46,10 @@ function saveExelHandler() {
             })
             .then(res => {
                 window.utools.showNotification("导出完成");
+            })
+            .then(res => {
+                window.utools.shellShowItemInFolder(savePath);
+                window.utools.shellOpenPath(savePath);
             });
     } catch (e) {
         window.utools.showNotification('出现问题' + e.message);
@@ -82,7 +89,7 @@ function XMindParseHandler() {
                 }
                 let text = ('总共' + taskSum + '个任务, 解析成功' + taskNum + '个、失败' +
                     (taskSum - taskNum) + '个, 成功任务合计' +
-                    taskTimeSum + 'H, 平均任务工时' + (taskTimeSum/taskNum) +
+                    taskTimeSum + 'H, 平均任务工时' + (taskTimeSum / taskNum) +
                     'H, 最大任务工时' + max + 'H, 最小任务工时' + min +
                     'H\n\n').concat(result)
 
@@ -116,6 +123,7 @@ window.exports = {
             enter: ({payload}, callbackSetList) => {
                 document.getElementById('setting')?.remove();
                 // 如果进入插件就要显示列表数据
+                fileName = payload[0].name;
                 filePath = payload[0].path;
                 callbackSetList(bookmarksDataCache);
             },
