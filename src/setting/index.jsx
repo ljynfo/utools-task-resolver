@@ -96,7 +96,7 @@ class SettingUI extends Component {
                   </div>
                 </div>
                 <div class="form-item inputBox">
-                  <div class="tips">预计开始</div>
+                  <div class="tips">预计开始(yyyy-MM-dd)</div>
                   <div class="input">
                       <input value="${this.data.startDate}"  type="text" required
                       onChange=${(e) => this.changeData(e, 'startDate')}/>
@@ -106,7 +106,7 @@ class SettingUI extends Component {
                   </div>
                 </div>
                 <div class="form-item inputBox">
-                  <div class="tips">预计结束</div>
+                  <div class="tips">预计结束(yyyy-MM-dd)</div>
                   <div class="input">
                       <input value="${this.data.endDate}"  type="text" required
                       onChange=${(e) => this.changeData(e, 'endDate')}/>

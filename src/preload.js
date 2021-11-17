@@ -9,7 +9,7 @@ let bookmarksDataCache = [
     {
         title: '保存到Excel',
         code: 'xmind_save',
-        description: '提取XMind中的任务信息，并并存到Excel，可直接进行导入',
+        description: '提取XMind中的任务信息，并存到Excel，可直接进行导入',
         pinyin: 'xmindbaocun',
         icon: 'img/columnCalculation.svg'
     }
@@ -45,7 +45,7 @@ function saveExelHandler() {
                 XLSX.writeFile(wb, savePath);
             })
             .then(res => {
-                window.utools.showNotification("导出完成");
+                window.utools.showNotification("Excel导出完成");
             })
             .then(res => {
                 window.utools.shellShowItemInFolder(savePath);
@@ -59,6 +59,7 @@ function saveExelHandler() {
 
 function XMindParseHandler() {
     try {
+        let text = ''
         zipUtils.readParseFileAlsoExcel(filePath)
             .then(data => {
                 let result = ''
@@ -87,7 +88,7 @@ function XMindParseHandler() {
                     result = result.concat('\n');
                     result = result.concat(title).concat('\t\t\t\t\t\t').concat(taskTime).concat('H').trim();
                 }
-                let text = ('总共' + taskSum + '个任务, 解析成功' + taskNum + '个、失败' +
+                text = ('总共' + taskSum + '个任务, 解析成功' + taskNum + '个、失败' +
                     (taskSum - taskNum) + '个, 成功任务合计' +
                     taskTimeSum + 'H, 平均任务工时' + (taskTimeSum / taskNum) +
                     'H, 最大任务工时' + max + 'H, 最小任务工时' + min +
@@ -96,7 +97,7 @@ function XMindParseHandler() {
                 window.utools.copyText(text)
             })
             .then(res => {
-                window.utools.showNotification("解析完成");
+                window.utools.showNotification("解析完成".concat('\n').concat(text));
             });
     } catch (e) {
         window.utools.showNotification('出现问题' + e.message);
@@ -129,13 +130,18 @@ window.exports = {
             },
             // 用户选择列表中某个条目时被调用
             select: (action, {code}) => {
-                switch (code) {
-                    case 'xmind_save':
-                        saveExelHandler();
-                        break;
-                    case 'xmind_parse':
-                        XMindParseHandler();
-                        break;
+                try {
+                    switch (code) {
+                        case 'xmind_save':
+                            saveExelHandler();
+                            break;
+                        case 'xmind_parse':
+                            XMindParseHandler();
+                            break;
+                    }
+                } catch (e) {
+                    console.log(e)
+                    window.utools.showNotification(e.message)
                 }
                 window.utools.hideMainWindow();
                 window.utools.outPlugin()
