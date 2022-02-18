@@ -103,41 +103,38 @@ function XMindParseHandler() {
         console.error(e);
     }
 }
-
+function save(){
+    try {
+        saveExelHandler();
+    } catch (e) {
+        console.log(e)
+        window.utools.showNotification(e.message)
+    }
+    window.utools.hideMainWindow();
+}
+window.saveExcel = save;
 window.exports = {
-    "setting": {
+    "xmind_save": {
         mode: 'none',
         args: {
-            // 进入插件时调用（可选）
             enter: ({payload}, callbackSetList) => {
-                // 如果进入插件就要显示列表数据
                 utools.setExpendHeight(480)
                 Nano.render(jsx`${SettingUI()}`, document.documentElement)
+                fileName = payload[0].name;
+                filePath = payload[0].path;
             },
         }
     },
-    "task_resolver": {
-        mode: "list",
+    "xmind_parse": {
+        mode: 'none',
         args: {
-            // 进入插件时调用（可选）
             enter: ({payload}, callbackSetList) => {
                 document.getElementById('setting')?.remove();
-                // 如果进入插件就要显示列表数据
                 fileName = payload[0].name;
                 filePath = payload[0].path;
-                callbackSetList(bookmarksDataCache);
-            },
-            // 用户选择列表中某个条目时被调用
-            select: (action, {code}) => {
+
                 try {
-                    switch (code) {
-                        case 'xmind_save':
-                            saveExelHandler();
-                            break;
-                        case 'xmind_parse':
-                            XMindParseHandler();
-                            break;
-                    }
+                    XMindParseHandler();
                 } catch (e) {
                     console.log(e)
                     window.utools.showNotification(e.message)

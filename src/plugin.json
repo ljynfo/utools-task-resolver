@@ -12,8 +12,8 @@
   ],
   "features": [
     {
-      "code": "task_resolver",
-      "explain": "任务解析",
+      "code": "xmind_save",
+      "explain": "保存到Excel",
       "cmds": [
         {
           "maxNum": 1,
@@ -25,9 +25,17 @@
       ]
     },
     {
-      "code": "setting",
-      "explain": "任务解析设置",
-      "cmds": ["任务解析设置"]
+      "code": "xmind_parse",
+      "explain": "提取到剪贴板",
+      "cmds": [
+        {
+          "maxNum": 1,
+          "type": "files",
+          "fileType": "file",
+          "match": "/\\.(?:xmind)$/i",
+          "label": "任务解析"
+        }
+      ]
     }
   ],
   "pluginSetting": {

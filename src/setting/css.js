@@ -83,7 +83,7 @@ const CustomCss = `
       flex-direction: column;
   }
   .tips {
-      width: 120px;
+      width: 100px;
   }
   .title {
       font-size: 16px;
@@ -109,7 +109,7 @@ const CustomCss = `
       font-size: 16px;
       padding: 5px;
       display: block;
-      width: 350px;
+      width: 120px;
       border: none;
       border-bottom: 1px dashed rgba(82,100,174, 0.6);
   }
@@ -121,12 +121,12 @@ const CustomCss = `
   /* LABEL ======================================= */
   .inputBox label {
       color: #999;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: normal;
       position: absolute;
       pointer-events: none;
       left: 5px;
-      top: 10px;
+      top: 5px;
       transition: 0.2s ease all;
       -moz-transition: 0.2s ease all;
       -webkit-transition: 0.2s ease all;
