@@ -32,10 +32,11 @@ class SettingUI extends Component {
 
     render() {
         return jsx`
-         <div id="setting" style="display: flex;flex-direction: column; align-items: center;margin-top: 0px;">
+         <div id="setting" style="display: flex;flex-direction: column; align-items: center;margin-top: 1px;">
             <div class="modal">
-                <div class="title">「任务解析」设置</div>
-                <div>
+                <p></p>
+                <div class="title">「表格生成字段设置」</div>
+                <div style="display: flex">
                     <div class="form-item inputBox">
                       <div class="tips">标题前缀</div>
                       <div class="input">
@@ -57,8 +58,7 @@ class SettingUI extends Component {
                       </div>
                     </div>
                 </div>
-                
-                <div>
+                <div style="display: flex">
                     <div class="form-item inputBox">
                       <div class="tips">处理人</div>
                       <div class="input">
@@ -79,16 +79,8 @@ class SettingUI extends Component {
                           <label>默认「''」</label>
                       </div>
                     </div>
-                    <div class="form-item inputBox">
-                      <div class="tips">优先级</div>
-                      <div class="input">
-                          <input value="${this.data.priority}"  type="text" required
-                          onChange=${(e) => this.changeData(e, 'priority')}/>
-                          <span class="highlight"></span>
-                          <span class="bar"></span>
-                          <label>默认「'High'」</label>
-                      </div>
-                    </div>
+                </div>
+                <div style="display: flex">
                     <div class="form-item inputBox">
                       <div class="tips">所属需求ID</div>
                       <div class="input">
@@ -99,6 +91,18 @@ class SettingUI extends Component {
                           <label>默认「''」</label>
                       </div>
                     </div>
+                    <div class="form-item inputBox">
+                      <div class="tips">优先级</div>
+                      <div class="input">
+                          <input value="${this.data.priority}"  type="text" required
+                          onChange=${(e) => this.changeData(e, 'priority')}/>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>默认「'High'」</label>
+                      </div>
+                    </div>
+                </div>
+                <div style="display: flex">
                     <div class="form-item inputBox">
                       <div class="tips">预计开始</div>
                       <div class="input">
@@ -121,7 +125,9 @@ class SettingUI extends Component {
                     </div>
                 </div>
             </div>
-            <button onClick=${(e) => window.saveExcel()}>点击</button>
+            <p></p>
+            <button class="saveButton" onClick=${(e) => window.saveExcel()}>生成Excel文件</button>
+            <p></p>
           </div>`
     }
 }

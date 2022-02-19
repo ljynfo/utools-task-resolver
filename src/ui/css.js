@@ -76,7 +76,7 @@ const CustomCss = `
   .modal {
       padding: 10px;
       width: 80%;
-      box-shadow: 1px 1px 1px #c3c3c3;
+      border:1px solid #4CAF50;
       border-radius: 10px;
       margin-bottom: 6px;
       display: flex;
@@ -86,10 +86,18 @@ const CustomCss = `
       width: 100px;
   }
   .title {
-      font-size: 16px;
+      font-size: 24px;
       font-weight: 700;
       padding-bottom: 10px;
-      border-bottom: 1px dashed #c3c3c3;
+      border-bottom: 2px;
+  }
+  .saveButton{
+      font-size: 24px;
+      border-radius: 5px;
+      font-weight: 700;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #4CAF50;
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }
   .form-item {
       display: flex;
@@ -109,7 +117,7 @@ const CustomCss = `
       font-size: 16px;
       padding: 5px;
       display: block;
-      width: 120px;
+      width: 190px;
       border: none;
       border-bottom: 1px dashed rgba(82,100,174, 0.6);
   }
@@ -143,7 +151,7 @@ const CustomCss = `
   .bar {
       position: relative;
       display: block;
-      width: 350px;
+      width: 190px;
   }
 
   .bar:before, .bar:after {

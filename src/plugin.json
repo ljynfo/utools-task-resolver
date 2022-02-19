@@ -13,27 +13,27 @@
   "features": [
     {
       "code": "xmind_save",
-      "explain": "保存到Excel",
+      "explain": "提取XMind中的任务信息，并存到Excel，可直接进行导入",
       "cmds": [
         {
           "maxNum": 1,
           "type": "files",
           "fileType": "file",
           "match": "/\\.(?:xmind)$/i",
-          "label": "任务解析"
+          "label": "保存到Excel"
         }
       ]
     },
     {
       "code": "xmind_parse",
-      "explain": "提取到剪贴板",
+      "explain": "提取XMind中的任务信息，并复制到剪贴板",
       "cmds": [
         {
           "maxNum": 1,
           "type": "files",
           "fileType": "file",
           "match": "/\\.(?:xmind)$/i",
-          "label": "任务解析"
+          "label": "提取到剪贴板"
         }
       ]
     }

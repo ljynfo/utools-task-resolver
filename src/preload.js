@@ -1,26 +1,9 @@
 const Nano = require('nano-jsx');
 const {jsx} = require('nano-jsx');
 const zipUtils = require('./js/zipUtils.js')
-const {SettingUI} = require('./setting/index.jsx');
+const {SettingUI} = require('./ui/index.jsx');
 const XLSX = require("xlsx");
 
-let bookmarksDataCache = [
-    {
-        title: '保存到Excel',
-        code: 'xmind_save',
-        description: '提取XMind中的任务信息，并存到Excel，可直接进行导入',
-        pinyin: 'xmindbaocun',
-        icon: 'img/columnCalculation.svg'
-    }
-    ,
-    {
-        title: '提取到剪贴板',
-        code: 'xmind_parse',
-        description: '提取XMind中的任务信息，并复制到剪贴板',
-        pinyin: 'xmindtiqu',
-        icon: 'img/taskExtract.svg'
-    }
-]
 // xmind 文件路径
 let filePath = '';
 let fileName = '';
@@ -37,11 +20,22 @@ function saveExelHandler() {
     try {
         zipUtils.readParseFileAlsoExcel(filePath)
             .then(data => {
-                const wb = XLSX.utils.book_new();
-                const ws = XLSX.utils.json_to_sheet(data);
-                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                const workBook = XLSX.utils.book_new();
+                const workSheet = XLSX.utils.json_to_sheet(data);
+                workSheet["!cols"] = [
+                    { wch: 100 },
+                    { wch: 10 },
+                    { wch: 10 },
+                    { wch: 10 },
+                    { wch: 10 },
+                    { wch: 10 },
+                    { wch: 12 },
+                    { wch: 12 },
+                    { wch: 10 },
+                ];
+                XLSX.utils.book_append_sheet(workBook, workSheet, 'Sheet1');
 
-                XLSX.writeFile(wb, savePath);
+                XLSX.writeFile(workBook, savePath);
             })
             .then(res => {
                 window.utools.showNotification("Excel导出完成");
@@ -103,7 +97,8 @@ function XMindParseHandler() {
         console.error(e);
     }
 }
-function save(){
+
+function save() {
     try {
         saveExelHandler();
     } catch (e) {
@@ -112,12 +107,14 @@ function save(){
     }
     window.utools.hideMainWindow();
 }
+
 window.saveExcel = save;
 window.exports = {
     "xmind_save": {
         mode: 'none',
         args: {
             enter: ({payload}, callbackSetList) => {
+                document.getElementById('setting')?.remove();
                 utools.setExpendHeight(480)
                 Nano.render(jsx`${SettingUI()}`, document.documentElement)
                 fileName = payload[0].name;
