@@ -19,7 +19,7 @@
           "maxNum": 1,
           "type": "files",
           "fileType": "file",
-          "match": "/\\.(?:xmind)$/i",
+          "match": "/\\.(?:xmind|zxm)$/i",
           "label": "保存到Excel"
         }
       ]
@@ -32,7 +32,7 @@
           "maxNum": 1,
           "type": "files",
           "fileType": "file",
-          "match": "/\\.(?:xmind)$/i",
+          "match": "/\\.(?:xmind|zxm)$/i",
           "label": "提取到剪贴板"
         }
       ]

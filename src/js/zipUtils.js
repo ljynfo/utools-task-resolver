@@ -25,16 +25,27 @@ async function getZipAssignFilename(zipPath, filename, type) {
 
 async function readFile(path) {
     try {
-        return await getZipAssignFilename(path, 'content.json', 'string')
-            .then((res) => {
-                let root = JSON.parse(res)[0]['rootTopic']
-                let contents = []
-                if (root['children']) {
-                    let root_children = root['children']['attached']
-                    parseContentsJson(contents, root, root_children)
-                }
-                return contents
-            })
+        if (path.endsWith(".zxm")) {
+            return await getZipAssignFilename(path, 'content.json', 'string')
+                .then((res) => {
+                    let root = JSON.parse(res)['root']
+                    let contents = []
+                    let root_children = root['children']
+                    parseContentsJsonZxm(contents, root, root_children)
+                    return contents
+                })
+        } else {
+            return await getZipAssignFilename(path, 'content.json', 'string')
+                .then((res) => {
+                    let root = JSON.parse(res)[0]['rootTopic']
+                    let contents = []
+                    if (root['children']) {
+                        let root_children = root['children']['attached']
+                        parseContentsJsonXmind(contents, root, root_children)
+                    }
+                    return contents
+                })
+        }
     } catch (e) {
         return await getZipAssignFilename(path, 'content.xml', 'string')
             .then((res) => {
@@ -186,7 +197,36 @@ function parseContentsXml(contents, node, children) {
     }
 }
 
-function parseContentsJson(contents, node, children) {
+function parseContentsJsonZxm(contents, node, children) {
+    if (node === undefined) {
+        return
+    }
+
+    let content = {}
+    content.id = node['data'].id
+    content.parentId = node['data'].parentId
+    content.title = node['data'].text
+    contents.push(content)
+
+    if (children === undefined || children.length === 0) {
+        return
+    }
+
+    let id = node['data'].id
+    for (let i = 0, len = children.length; i < len; i++) {
+        let child = children[i]
+        child['data'].parentId = id
+
+        let root_children = child.children
+        if (root_children) {
+            parseContentsJsonZxm(contents, child, root_children)
+        } else {
+            parseContentsJsonZxm(contents, child, undefined)
+        }
+    }
+}
+
+function parseContentsJsonXmind(contents, node, children) {
     if (node === undefined) {
         return
     }
@@ -209,9 +249,9 @@ function parseContentsJson(contents, node, children) {
         let toot_children_attached = child.children
         if (toot_children_attached) {
             let root_children = toot_children_attached.attached
-            parseContentsJson(contents, child, root_children)
+            parseContentsJsonXmind(contents, child, root_children)
         } else {
-            parseContentsJson(contents, child, undefined)
+            parseContentsJsonXmind(contents, child, undefined)
         }
     }
 }

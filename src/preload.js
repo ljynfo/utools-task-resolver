@@ -9,12 +9,14 @@ let filePath = '';
 let fileName = '';
 let excelSuffix = 'xlsx'
 let xmindSuffix = 'xmind'
+let zxmSuffix = 'zxm'
 
 function saveExelHandler() {
     const savePath = utools.showSaveDialog({
         title: '保存位置',
         filters: [{name: "Excel", extensions: [excelSuffix]}],
-        defaultPath: filePath.replace('.'.concat(xmindSuffix), ''),
+        defaultPath: filePath.replace('.'.concat(xmindSuffix), '')
+            .replace('.'.concat(zxmSuffix), ''),
         buttonLabel: '保存'
     });
     try {
