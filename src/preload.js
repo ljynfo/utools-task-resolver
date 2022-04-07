@@ -25,15 +25,15 @@ function saveExelHandler() {
                 const workBook = XLSX.utils.book_new();
                 const workSheet = XLSX.utils.json_to_sheet(data);
                 workSheet["!cols"] = [
-                    { wch: 100 },
-                    { wch: 10 },
-                    { wch: 10 },
-                    { wch: 10 },
-                    { wch: 10 },
-                    { wch: 10 },
-                    { wch: 12 },
-                    { wch: 12 },
-                    { wch: 10 },
+                    {wch: 100},
+                    {wch: 10},
+                    {wch: 10},
+                    {wch: 10},
+                    {wch: 10},
+                    {wch: 10},
+                    {wch: 12},
+                    {wch: 12},
+                    {wch: 10},
                 ];
                 XLSX.utils.book_append_sheet(workBook, workSheet, 'Sheet1');
 
@@ -68,17 +68,19 @@ function XMindParseHandler() {
                     taskSum++
                     let title = content.标题
                     let taskTime = content.预估工时
-                    taskTimeSum = taskTimeSum + taskTime
-                    taskNum++
-                    if (max == null) {
-                        max = taskTime
-                    } else {
-                        max = max > taskTime ? max : taskTime
-                    }
-                    if (min == null) {
-                        min = taskTime
-                    } else {
-                        min = min < taskTime ? min : taskTime
+                    if (!isNaN(taskTime)) {
+                        taskTimeSum = taskTimeSum + taskTime
+                        taskNum++
+                        if (max == null) {
+                            max = taskTime
+                        } else {
+                            max = max > taskTime ? max : taskTime
+                        }
+                        if (min == null) {
+                            min = taskTime
+                        } else {
+                            min = min < taskTime ? min : taskTime
+                        }
                     }
                     result = result.concat('\n');
                     result = result.concat(title).concat('\t\t\t\t\t\t').concat(taskTime).concat('H').trim();
