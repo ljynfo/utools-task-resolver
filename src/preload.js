@@ -61,8 +61,8 @@ function XMindParseHandler() {
                 let taskSum = 0
                 let taskNum = 0
                 let taskTimeSum = 0
-                let max
-                let min
+                let max = 0
+                let min = 0
                 for (let i = 0; i < data.length; i++) {
                     let content = data[i]
                     taskSum++
@@ -87,9 +87,14 @@ function XMindParseHandler() {
                 }
                 text = ('总共' + taskSum + '个任务, 解析成功' + taskNum + '个、失败' +
                     (taskSum - taskNum) + '个, 成功任务合计' +
-                    taskTimeSum + 'H, 平均任务工时' + (taskTimeSum / taskNum) +
-                    'H, 最大任务工时' + max + 'H, 最小任务工时' + min +
-                    'H\n\n').concat(result)
+                    taskTimeSum + 'H')
+                if (taskNum > 0) {
+                    let avg = taskTimeSum / taskNum
+                    text = text.concat(', 平均任务工时' + avg +
+                        'H, 最大任务工时' + max + 'H, 最小任务工时' + min +
+                        'H\n\n')
+                }
+                text = text.concat('\n\n').concat(result)
 
                 window.utools.copyText(text)
             })
